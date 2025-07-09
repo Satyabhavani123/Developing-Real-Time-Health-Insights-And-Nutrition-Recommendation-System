@@ -26,4 +26,10 @@ Machine Learning: Used to analyze trends and recommend meals
 ![image](https://github.com/user-attachments/assets/ce9d1b22-9e49-484a-b777-1cb6b21f2946)
 
 
+![image](https://github.com/user-attachments/assets/31dec75e-9e27-4c42-b4bc-815dff50af9d)
+
+![image](https://github.com/user-attachments/assets/56afe06f-f909-45f2-ac9e-bf8999b94722)
+
+
+
 
