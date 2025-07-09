@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Meal Planner</title>
+    <style>
+        /* General Styling */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: url('static/image.png') no-repeat center center fixed; /* Background Image */
+            background-size: cover;
+        }
+
+        /* Navbar */
+        .navbar { 
+            background-color: rgba(0, 0, 0, 0.7); /* Slight transparency for better visibility */
+            overflow: hidden; 
+            padding: 10px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 10px 20px; 
+            display: inline-block; 
+        }
+        .navbar a:hover { 
+            background-color: #575757; 
+        }
+
+        /* Dashboard Container */
+        .dashboard-container { 
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white for readability */
+            padding: 20px; 
+            margin: 50px auto; 
+            width: 50%; 
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+            border-radius: 5px; 
+            text-align: center;
+        }
+        .dashboard-container h2 { 
+            margin-bottom: 20px; 
+            color: #333; 
+        }
+
+        /* Meal Plan */
+        .meal-plan, .meal-details { 
+            margin-bottom: 20px; 
+            text-align: left;
+        }
+        .meal-plan p, .meal-details p { 
+            margin: 5px 0; 
+        }
+
+        /* Buttons */
+        .btn { 
+            background-color: #28a745; 
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            display: inline-block; 
+            margin: 5px; 
+            transition: 0.3s;
+        }
+        .btn:hover { 
+            background-color: #218838; 
+        }
+        .btn-secondary { 
+            background-color: #007bff; 
+        }
+        .btn-secondary:hover { 
+            background-color: #0056b3; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <h2>Your Meal Plan</h2>
+
+        <div class="meal-plan">
+            <h3>Predicted Daily Calorie Target: {{ predicted_calories }}</h3>
+            {% if meal.error %}
+                <p style="color: red;">{{ meal.error }}</p>
+            {% else %}
+                <p><strong>Breakfast:</strong> {{ meal['Breakfast Suggestion'] }}</p>
+                <p><strong>Lunch:</strong> {{ meal['Lunch Suggestion'] }}</p>
+                <p><strong>Dinner:</strong> {{ meal['Dinner Suggestion'] }}</p>
+                <p><strong>Snacks:</strong> {{ meal['Snacks Suggestion'] }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Nutrient Information -->
+        <div class="meal-details">
+            <h3>Nutrient Information</h3>
+            <p><strong>Calories:</strong> {{ meal.Calories }}</p>
+            <p><strong>Proteins:</strong> {{ meal.Protein }}g</p>
+            <p><strong>Fats:</strong> {{ meal.Fat }}g</p>
+            <p><strong>Carbohydrates:</strong> {{ meal.Carbohydrates }}g</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div>
+            <a href="/log-meal" class="btn">Log Your Meals</a>
+            <a href="/meal-recommendations" class="btn btn-secondary">Get Meal Recommendations</a>
+        </div>
+    </div>
+
+</body>
+</html>

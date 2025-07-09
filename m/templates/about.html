@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Meal Planner</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f1f3, #d0e2e7);
+            color: #333333;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Parallax Background */
+        .parallax {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('static/image.png') no-repeat center center/cover;
+            opacity: 0.2;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(63, 81, 181, 0.85);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 24px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu .active {
+            color: #ffd700;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* About Container */
+        .about-container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s forwards;
+            backdrop-filter: blur(5px);
+        }
+
+        /* About Sections (side by side layout) */
+        .about-sections {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Interactive Cards */
+        section {
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+            width: 280px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            transition: transform 0.5s, box-shadow 0.5s;
+            flex: 1 1 280px;
+            min-height: 200px;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            perspective: 1000px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        section:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        section:nth-child(1) { background-color: #d9f7e3; } /* Light Green */
+        section:nth-child(2) { background-color: #c1d9e0; } /* Light Blue */
+        section:nth-child(3) { background-color: #f2d9d9; } /* Light Pink */
+        section:nth-child(4) { background-color: #f9f2d1; color: #000; } /* Light Yellow */
+        section:nth-child(5) { background-color: #e6c1f2; } /* Light Purple */
+        section:nth-child(6) { background-color: #d0f2f9; } /* Light Teal */
+        section:nth-child(7) { background-color: #f8d4d9; } /* Light Coral */
+        section:nth-child(8) { background-color: #f9e0e0; } /* Very Light Pink */
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333333;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #3f51b5;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1E252D;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 1.5s forwards;
+        }
+
+        .loading-spinner {
+            border: 5px solid #FFD700;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #3f51b5;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 200px;
+                padding: 15px;
+                box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin-bottom: 10px;
+                text-align: left;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Adjusting Sections Layout on Small Screens */
+            .about-sections {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            section {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Animation -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Parallax Background -->
+    <div class="parallax"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo"><i class="fas fa-leaf"></i> Healthy Meal Planner</a>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">☰</button>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/about" class="nav-link active">About</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+            <li><a href="/login" class="nav-link">Login</a></li>
+            <li><a href="/signup" class="nav-link">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="about-container">
+            <h2>About Meal Planner</h2>
+            <p>
+                Meal Planner is a personalized meal planning application designed to help users achieve their dietary goals.
+                Whether you're looking to lose weight, gain muscle, or maintain a healthy lifestyle, Meal Planner provides
+                customized meal plans based on your unique profile.
+            </p>
+        </div>
+
+        <div class="about-sections">
+            <section>
+                <h2>Introduction</h2>
+                <p>Our app helps users find meal plans based on their dietary preferences.</p>
+            </section>
+            <section>
+                <h2>Mission</h2>
+                <p>We aim to promote healthy eating and balanced nutrition.</p>
+            </section>
+            <section>
+                <h2>Technology</h2>
+                <p>Using AI, we personalize meal plans for different users.</p>
+            </section>
+            <section>
+                <h2>Team</h2>
+                <p>Our team includes nutritionists, AI experts, and software developers.</p>
+            </section>
+            <section>
+                <h2>Dietary Options</h2>
+                <p>We support vegan, keto, and other specialized meal plans.</p>
+            </section>
+            <section>
+                <h2>Health Benefits</h2>
+                <p>Improve digestion, energy levels, and overall wellness.</p>
+            </section>
+            <section>
+                <h2>Feedback</h2>
+                <p>We value user feedback to improve our service.</p>
+            </section>
+            <section>
+                <h2>Contact</h2>
+                <p>Reach out to us for any inquiries or support.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Healthy Meal Planner. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Hide loading screen after page load
+        window.addEventListener('load', () => {
+            document.querySelector('.loading').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

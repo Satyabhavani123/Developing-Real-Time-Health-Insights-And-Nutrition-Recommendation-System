@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Plan - Meal Planner</title>
+    <style>
+        /* General Page Styling */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: url('static/image.png') no-repeat center center/cover; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-size: cover;
+        }
+
+        /* Form Container */
+        .form-container { 
+            background-color: white; 
+            padding: 20px; 
+            margin-top: 80px; /* To avoid overlapping with the navbar */
+            width: 80%; /* Increased width */
+            max-width: 700px; /* Ensuring it doesn't become too wide */
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+            border-radius: 8px;
+            height: auto; /* Automatically adjusts height based on content */
+            overflow: visible; /* Allow overflow to see all elements */
+        }
+
+        /* Form Fields */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input, .form-group select { 
+            width: 100%; /* Ensures input fields don't overflow */
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensures padding doesn't increase width */
+        }
+
+        /* Submit Button */
+        .form-group button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #28a745; 
+            color: white; 
+            font-size: 16px;
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: 0.3s;
+            margin-top: 20px; /* Ensure some space between fields and button */
+        }
+        .form-group button:hover { background-color: #218838; }
+
+        /* Error Message */
+        .error { color: red; text-align: center; margin-bottom: 10px; }
+
+        /* Adjustments for mobile devices */
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%; /* Make the container full width on small screens */
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Meal Plan Form</h2>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" name="height" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" name="weight" required>
+            </div>
+            <div class="form-group">
+                <label for="activity_level">Activity Level:</label>
+                <select id="activity_level" name="activity_level" required>
+                    <option value="Sedentary">Sedentary</option>
+                    <option value="Lightly Active">Lightly Active</option>
+                    <option value="Moderately Active">Moderately Active</option>
+                    <option value="Very Active">Very Active</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dietary_preference">Dietary Preference:</label>
+                <select id="dietary_preference" name="dietary_preference" required>
+                    <option value="Omnivore">Omnivore</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="disease">Health Condition:</label>
+                <select name="disease" id="disease" required>
+                    <option value="Weight Gain">Weight Gain</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Hypertension">Hypertension</option>
+                    <option value="Kidney Disease">Kindey Disease </option>
+                    <option value="Heart Disease">Heart Disease</option>
+                    <option value="Obesity">Obesity</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

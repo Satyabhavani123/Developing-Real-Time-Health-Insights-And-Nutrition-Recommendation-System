@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal History</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('static/image.png') no-repeat center center fixed; /* Background Image */
+            background-size: cover;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        /* Back to Dashboard Link */
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+            font-size: 18px;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        /* Alternate Row Colors */
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                width: 95%;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Meal History</h1>
+    
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Meal</th>
+                <th>Portion (g)</th>
+                <th>Calories</th>
+                <th>Proteins (g)</th>
+                <th>Fats (g)</th>
+                <th>Carbs (g)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in meal_log %}
+            <tr>
+                <td>{{ entry.meal }}</td>
+                <td>{{ entry.portion }}</td>
+                <td>{{ entry.calories }}</td>
+                <td>{{ entry.proteins }}</td>
+                <td>{{ entry.fats }}</td>
+                <td>{{ entry.carbs }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('log_meal') }}">Back to Meal log</a>
+
+</body>
+</html>

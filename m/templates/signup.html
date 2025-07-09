@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Meal Planner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Page Styling */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: url('static/image.png') no-repeat center center/cover; 
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;  
+            align-items: center;      
+            height: 100vh;            
+        }
+
+        /* Login Form Container */
+        .form-container { 
+            background-color: white; 
+            padding: 30px; 
+            width: 400px; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+            border-radius: 10px; 
+            text-align: center;
+        }
+        .form-container h2 { margin-bottom: 20px; color: #333; }
+
+        /* Form Fields */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Login Button */
+        .form-group button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #28a745; 
+            color: white; 
+            font-size: 16px;
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        .form-group button:hover { background-color: #218838; }
+
+        /* Signup Link */
+        .signup-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Message */
+        .error { color: red; text-align: center; margin-bottom: 10px; }
+
+        /* Social Login */
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: #f1f1f1;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .social-icon:hover { background: #ddd; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="username"><i class="fa-solid fa-user"></i> Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit"><i class="fa-solid fa-right-to-bracket"></i>Register</button>
+            </div>
+        </form>
+
+        <!-- Signup Link -->
+        <p class="signup-link">Don't have an account? <a href="login">Signin</a></p>
+
+        <!-- Social Login -->
+        <div class="social-login">
+            <div class="social-icon">
+                <i class="fa-brands fa-google"></i>
+            </div>
+            <div class="social-icon">
+                <i class="fa-brands fa-facebook-f"></i>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
